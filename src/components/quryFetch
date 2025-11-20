@@ -1,0 +1,36 @@
+import React from 'react'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+
+const App = () => {
+  // Step 1: Define query function
+  const fetchPosts = async () => {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+    return response.data
+  }
+
+  // Step 2: useQuery hook call karo
+  const { data, error, isLoading, isError } = useQuery({
+    queryKey: ['posts'],      // unique key for caching
+    queryFn: fetchPosts,      // function jo data fetch karega
+  })
+
+  // Step 3: handle states
+  if (isLoading) return <p>Loading...</p>
+  if (isError) return <p>Error: {error.message}</p>
+
+  // Step 4: show data
+  return (
+    <div>
+      <h1>Posts</h1>
+      {data.slice(0, 5).map(post => (
+        <div key={post.id}>
+          <h3>{post.title}</h3>
+          <p>{post.body}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export default App

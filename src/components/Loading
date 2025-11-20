@@ -1,0 +1,50 @@
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+
+const App = () => {
+
+
+  const [products, setProducts] = useState([])
+  const [isLoading, setLoading] = useState(false)
+
+  const getData = async () => {
+    try {
+      setLoading(true)
+      const res = await axios.get("https://fakestoreapi.com/products");
+      console.log(res.data);
+      setProducts(res.data);
+
+      setLoading(false)
+
+    } catch (e) {
+      setLoading(false)
+      console.log(e);
+    }
+  };
+
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return (
+    <div className="bg-black/60 h-screen">
+    {
+      isLoading && <h1>Loading...</h1>
+    }
+      {
+        products.map((items, i)=>(
+            <div key={items.id}>
+            <h1 >{items. title}</h1>
+            <img src={items.image}/>
+            </div>
+          ))
+      }
+    </div>
+  );
+};
+
+export default App;
+
+
+// Loadding.io/css - for loader
