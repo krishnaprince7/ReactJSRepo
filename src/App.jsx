@@ -7,10 +7,7 @@ const App = () => {
 
 
   const [show, setShow] = useState()
-
-  
-
-
+ 
   const [deleteId, setDeleteId] = useState(null)
   const qureyClient = useQueryClient
 
@@ -19,10 +16,6 @@ const App = () => {
     console.log("Data", res.data)
     return res.data
   }
-
-
-
-
 
   const {data} = useQuery({
     queryKey: ["users"],
