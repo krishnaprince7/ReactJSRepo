@@ -17,6 +17,9 @@ const App = () => {
     return res.data
   }
 
+
+  // use qurey
+
   const {data} = useQuery({
     queryKey: ["users"],
     queryFn: getApi
